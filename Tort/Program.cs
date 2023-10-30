@@ -1,4 +1,8 @@
 ﻿using Tort;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 using System.IO;
 string formas = "";
 int formai = 0;    
@@ -31,7 +35,6 @@ do
     Console.WriteLine("Цена: " + summi);
     summs = "Заказ:\n" + formas + razmers + vkyss + kolichs + glazyrs + dekors;
     Console.WriteLine(summs);
-    Console.WriteLine("");
     int pos = MeNu.show(2, 8);
     switch (pos)
     {
@@ -185,7 +188,21 @@ do
                     break;
             }
             break;
-        case 8:               
+        case 8:
+            string path = "History.txt";
+            string time = Convert.ToString(DateTime.Now);
+            string summis = Convert.ToString(summi);
+            string txt = "Время заказа: " + time + "\nТорт: " + summs + "\nИтого: " + summis;
+            if (File.Exists(path))
+            {
+                File.AppendAllText(path, txt);
+            }
+            else
+            {
+                File.Create(path);
+                File.WriteAllText(path, txt);
+            }
+                
             break;
     }
     if (pos == 0)
